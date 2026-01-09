@@ -3,7 +3,7 @@ package com.example.auth.domain.user;
 public class User {
     private final UserId userId;
     private final Email email;
-    private final PasswordHash passwordHash;
+    private PasswordHash passwordHash;
     private UserStatus status;
 
     public User(UserId userId, Email email, PasswordHash passwordHash) {
@@ -12,7 +12,7 @@ public class User {
         this.passwordHash = passwordHash;
         this.status = UserStatus.ACTIVE;
     }
-
+    // --- Behavior ---
     public void disable() {
        if (status == UserStatus.DISABLED) {
             throw new IllegalStateException("User already disabled");
@@ -21,5 +21,23 @@ public class User {
     }
     public void changePassword(PasswordHash newHash) {
         this.passwordHash = newHash;
+    }
+
+    // --- Getters (Read-only access) ---
+
+    public UserId getId() {
+        return userId;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public PasswordHash getPasswordHash() {
+        return passwordHash;
     }
 }
